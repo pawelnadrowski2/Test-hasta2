@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasta Services – Fulfillment dla E-commerce</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-k6PhpsaF4s4Yvm5ErIy1UWlWUvWn+VX4I4WVhZ8OEwU2r9E9vE6lX9XU6n4z2E2fC9r1Wq9y4qJQkZ4D7HVgQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* -------------------------------------------------------------
+     * ADAPTACJA STYLI Z PLIKU UI NOWA PLATFORMA.TXT
+     * -----------------------------------------------------------*/
+    :root {
+      --brand-blue: #0e4194;
+      --brand-blue-dark: #09306e;
+      --brand-red: #dc2c34;
+      --bg-light: #f3f7fc;
+      --card-radius: 16px;
+      --transition: all 0.3s ease;
+      /* New color variables for stat icons */
+      --stat-icon-yellow-bg: #fff3cd;
+      --stat-icon-yellow-color: #f0ad00;
+      --stat-icon-green-bg: #d1fae5;
+      --stat-icon-green-color: #1d9a5f;
+      --stat-icon-red-bg: #fde2e2;
+      --stat-icon-red-color: #dc2c34;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: var(--bg-light);
+      color: #222;
+    }
+
+    /****************************
+     * NAVBAR
+     ***************************/
+    header {
+      background: var(--brand-blue);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header .brand { display: flex; align-items: center; gap: 0.75rem; font-weight: 600; }
+    header img { height: 40px; }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition);
+    }
+    nav a:hover { opacity: 0.8; }
+
+    /****************************
+     * CONTAINER & HEADINGS
+     ***************************/
+    .container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    h1 { margin: 0 0 0.25rem; font-size: 2rem; font-weight: 700; }
+    .subtitle { color: #555; margin-bottom: 2rem; }
+
+    /****************************
+     * KAFELKI STATYSTYK (ADAPTACJA NA KORZYŚCI)
+     ***************************/
+    .stats {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      margin-bottom: 2.5rem;
+    }
+    .stat {
+      background: #fff;
+      border-radius: var(--card-radius);
+      padding: 1.25rem 1.5rem;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: var(--transition);
+    }
+    .stat:hover { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(0,0,0,0.08); }
+    .stat::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand-blue) 0%, var(--brand-red) 100%);
+      border-top-left-radius: var(--card-radius);
+      border-top-right-radius: var(--card-radius);
+    }
+    .stat-icon {
+      background: rgba(14, 65, 148, 0.1);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      color: var(--brand-blue);
+    }
+
+    /* Specific stat icon styles */
+    .stat-icon.yellow { background: var(--stat-icon-yellow-bg); color: var(--stat-icon-yellow-color); }
+    .stat-icon.green { background: var(--stat-icon-green-bg); color: var(--stat-icon-green-color); }
+    .stat-icon.red { background: var(--stat-icon-red-bg); color: var(--stat-icon-red-color); }
+
+    .stat-number { font-size: 1.4rem; font-weight: 700; margin-top: 0.5rem; }
+    .stat-label { font-size: 0.85rem; color: #666; }
+
+    /****************************
+     * UNIWERSALNE KARTY
+     ***************************/
+    .card {
+      background: #fff;
+      border-radius: var(--card-radius);
+      padding: 1.8rem 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: var(--transition);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0 0 1.25rem;
+    }
+    .card-title i { color: var(--brand-blue); font-size: 1.1rem; }
+
+    /****************************
+     * GRIDS
+     ***************************/
+    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr 320px; }
+    @media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
+
+    /* Secondary grid override for equal cards */
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .grid-account-settings { grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); }
+
+ 
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><img src="https://hurt.hasta.pl/themes/appwise-nowy-20190822135112/assets/img/logo.png" alt="Hasta logo" />Hasta Services</div>
+    <nav>
+      <a href="#about"><i class="fa-solid fa-circle-info"></i> O Fulfillment</a>
+      <a href="#process"><i class="fa-solid fa-screwdriver-wrench"></i> Jak Działamy</a>
+      <a href="#benefits"><i class="fa-solid fa-hand-holding-dollar"></i> Korzyści</a>
+      <a href="#contact"><i class="fa-solid fa-envelope"></i> Kontakt</a>
+     
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Logistyka e-commerce bez tajemnic.</h1>
+    <p class="subtitle">Pełny Fulfillment dla Twojego Sklepu Internetowego – od magazynowania, przez pakowanie, po wysyłkę i zwroty.</p>
+    <a href="#contact" class="btn-primary-hero" style="margin-bottom: 3rem;"><i class="fa-solid fa-rocket"></i>
+
+    <section class="stats" id="benefits">
+      <div class="stat">
+        <div class="stat-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="stat-number">Magazynowanie i Przyjęcie</div>
+        <div class="stat-label">Przyjmujemy Twoje produkty, kontrolujemy ich stan i umieszczamy w odpowiednio zabezpieczonym magazynie, gotowe do wysyłki.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon yellow"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="stat-number">Skalowalność</div>
+        <div class="stat-label">Łatwe dostosowanie do sezonów i wzrostu sprzedaży.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon green"><i class="fa-solid fa-eye"></i></div>
+        <div class="stat-number">Dostęp i Kontrola</div>
+        <div class="stat-label">Monitoring magazynu i stanów 24/7 online.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon red"><i class="fa-solid fa-wallet"></i></div>
+        <div class="stat-number">Oszczędność Czasu</div>
+         <p class="card-content-large-text">Skup się na rozwoju</p>
+  <p class="card-content-small-text">My zajmiemy się logistyką. Obniżenie kosztów nawet o <strong>30% rocznie</strong>.</p>
+
+      </div>
+       <div class="stat">
+        <div class="stat-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="stat-number">Kompletacja i Pakowanie</div>
+        <div class="stat-label">Precyzyjnie kompletujemy zamówienia i pakujemy je w bezpieczne, a na życzenie personalizowane opakowania, gotowe do drogi.</div>
+        
+        </div>
+        <div class="stat">
+        <div class="stat-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="stat-number">Obsługa Zwrotów</div>
+        <div class="stat-label">Sprawnie zarządzamy całym procesem zwrotów i reklamacji, minimalizując Twoje koszty i utrzymując satysfakcję klienta.</div>
+    </section>
+
+    <h2 style="font-size: 1.75rem; margin-top: 3rem;" id="process">Nasz Proces Fulfillment - Krok po Kroku</h2>
+    <p class="subtitle" style="margin-bottom: 2rem;">Zapewniamy kompleksową obsługę – od przyjęcia towaru, aż do dostarczenia go do rąk klienta.</p>
+    
+    <div class="grid grid-3">
+      <section class="card">
+        <div class="card-title"><i class="fa-solid fa-warehouse"></i> Magazynowanie i Przyjęcie</div>
+        <p>Przyjmujemy Twoje produkty, kontrolujemy ich stan i umieszczamy w nowoczesnym magazynie, gotowe do szybkiej wysyłki.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-title"><i class="fa-solid fa-box-open"></i> Kompletacja i Pakowanie (Pick & Pack)</div>
+        <p>Zautomatyzowana i precyzyjna kompletacja. Bezpieczne, a na życzenie personalizowane pakowanie (np. ekologiczne).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-title"><i class="fa-solid fa-truck-fast"></i> Wysyłka i Dostawa</div>
+        <p>Dzięki integracji z czołowymi przewoźnikami, gwarantujemy najlepsze ceny i najszybszy czas dostawy do klienta.</p>
+      </section>
+      
+      <section class="card">
+        <div class="card-title"><i class="fa-solid fa-rotate-left"></i> Obsługa Zwrotów i Reklamacji</div>
+        <p>Sprawnie zarządzamy całym procesem obsługi posprzedażowej, minimalizując Twoje obciążenie administracyjne.</p>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top: 3rem; text-align: center;" id="contact">
+        <h2 style="margin: 0 0 1rem; font-size: 1.75rem;">Chcesz zredukować koszty logistyki o 30%?</h2>
+        <p class="subtitle" style="margin-bottom: 1.5rem; text-align: center;">Skontaktuj się z nami, aby omówić szczegóły i otrzymać bezpłatną wycenę usługi Fulfillment.</p>
+        <a href="mailto:b2b@hasta.pl" class="btn-primary-hero"><i class="fa-solid fa-envelope"></i> Wycena Indywidualna</a>
+    </section>
+
+  </div>
+
+  <footer style="background:var(--brand-blue); color:#fff; text-align:center; padding:1rem; margin-top:3rem;">
+    © 2025 Hasta Sp. z o.o. • Kontakt: <a href="mailto:b2b@hasta.pl" style="color:#fff;text-decoration:underline;">b2b@hasta.pl</a> • +48 71 377 12 34
+  </footer>
+
+</body>
+</html>
